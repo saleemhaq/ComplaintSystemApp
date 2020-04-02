@@ -1,0 +1,37 @@
+[
+  {
+    "Username": "Ali",
+    "Password": "password",
+    "Created": "2020-03-30"
+  },
+  {
+    "Username": "Hamza",
+    "Password": "password",
+    "Created": "2020-03-30"
+  },
+  {
+    "Username": "Reyna",
+    "Password": "password",
+    "Created": "2020-04-01"
+  },
+  {
+    "Username": "Susan",
+    "Password": "password",
+    "Created": "2020-03-31"
+  },
+  {
+    "Username": "Nettie",
+    "Password": "password",
+    "Created": "2017-03-09"
+  },
+  {
+    "Username": "Marcia",
+    "Password": "password",
+    "Created": "2017-07-08"
+  },
+  {
+    "Username": "Curtis",
+    "Password": "password",
+    "Created": "2017-06-04"
+  }
+]

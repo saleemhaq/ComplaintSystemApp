@@ -7,6 +7,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20200402200458_AddEntityComplaint.cs" />
     <Compile Remove="Migrations\20200402200458_AddEntityComplaint.Designer.cs" />
+    <Compile Remove="Migrations\20200402214414_UpdateEntityComplaint.cs" />
+    <Compile Remove="Migrations\20200402214414_UpdateEntityComplaint.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,6 +23,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 
   <ItemGroup>

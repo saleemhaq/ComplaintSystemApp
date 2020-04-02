@@ -11,5 +11,7 @@ namespace ComplaintApp.Core.Users
 
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
+        public DateTime CreationTime { get; set; }
+
     }
 }

@@ -8,5 +8,8 @@ namespace ComplaintApp.Core.Users
     public class User : IdentityUser<int>
     {
         public ICollection<UserRole> UserRoles { get; set; }
+
+        public bool IsActive { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

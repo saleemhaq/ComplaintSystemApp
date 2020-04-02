@@ -1,0 +1,19 @@
+{
+  "ReRoutes": [
+    {
+      "DownstreamPathTemplate": "/api/Auth/login",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7000
+        }
+      ],
+      "UpstreamPathTemplate": "/Authentication/Auth/login"
+      //"UpstreamHttpMethod": [ "Put", "Delete" ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:7000"
+  }
+}

@@ -9,7 +9,8 @@
           "Port": 7000
         }
       ],
-      "UpstreamPathTemplate": "/Authentication/Auth/login"
+      "UpstreamPathTemplate": "/Authentication/Auth/login",
+      "DangerousAcceptAnyServerCertificateValidator": true
       //"UpstreamHttpMethod": [ "Put", "Delete" ]
     }
   ],

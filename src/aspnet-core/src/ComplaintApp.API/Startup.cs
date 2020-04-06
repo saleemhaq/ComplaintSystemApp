@@ -5,7 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using ComplaintApp.Application.Authentication;
+using ComplaintApp.Application.Complaint;
+using ComplaintApp.Application.Shared;
 using ComplaintApp.Core.Users;
+using ComplaintApp.EntityFrameworkCore.Migrations;
 using ComplaintApp.EntityFrameworkCore.Repositories;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
@@ -22,6 +25,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace ComplaintApp.API
 {
@@ -68,6 +73,13 @@ namespace ComplaintApp.API
             // A service that allows the user to log-in
             builder.AddSignInManager<SignInManager<User>>();
 
+            // Add the Seed class
+            services.AddTransient<Seed>();
+
+            // We want to create LogUserActivity per request so we will
+            // be using AddScoped
+            services.AddScoped<LogUserActivity>();
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -81,16 +93,58 @@ namespace ComplaintApp.API
                         ValidateAudience = false
                     };
                 });
+
+            services.AddAuthorization(options =>
+            {
+                // These are the policies we have and we are going to keep it simple
+                // These policies can be quite flexible, we are just going to use it to 
+                // define roles for a specific action in the controller
+                options.AddPolicy("RequireAdminRole", policy =>
+                    policy.RequireRole("Admin"));
+                options.AddPolicy("ModeratePhotoRole", policy =>
+                    policy.RequireRole("Admin", "Moderator"));
+                options.AddPolicy("Staff", policy =>
+                    policy.RequireRole("Staff"));
+                options.AddPolicy("Customer", policy =>
+                    policy.RequireRole("Customer"));
+            });
+
+            services.AddMvc(options =>
+                {
+                    var policy = new AuthorizationPolicyBuilder()
+                        // This is going to require authentication globally
+                        .RequireAuthenticatedUser()
+                        .Build();
+                    options.Filters.Add(new AuthorizeFilter(policy));
+
+                }).SetCompatibilityVersion(CompatibilityVersion.Latest)
+                // The below option fixes issues like the below
+                // fail: Microsoft.AspNetCore.Server.Kestrel[13]
+                // Connection id "0HLH7GM9OPUNC", Request id "0HLH7GM9OPUNC:00000001": An unhandled exception was thrown by the application.
+                // Newtonsoft.Json.JsonSerializationException: Self referencing loop detected for property 'user' with type 'DatingApp.API.Models.User'.Path '[0].photos[0]'.
+                // This error in Postman is only shown as ==> Expected ',' instead of ''
+                .AddNewtonsoftJson();
+            services.AddScoped<IComplaintRepository, ComplaintRepository>();
             services.AddCors();
         }
 
+        
+        //public void ConfigureDevelopmentServices(IServiceCollection services)
+        //{
+        //    // Add the Seed class
+        //    services.AddTransient<Seed>();
+        //}
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Seed seeder)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+            // Seed the users
+            // Just uncomment this if we ever we need to seed our database
+            seeder.SeedUsers();
 
             app.UseHttpsRedirection();
 

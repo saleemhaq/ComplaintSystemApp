@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ComplaintApp.Core.Complaint;
 using ComplaintApp.Core.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -16,6 +17,7 @@ namespace ComplaintApp.EntityFrameworkCore.Repositories
             : base(options) { }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Complaint> Complaints { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

@@ -1,0 +1,58 @@
+<!--
+    In our nav.component.html, we are using template reference variable.
+    For our register.component.html, we will be using reactive forms by
+    specifying [formGroup]="registerComplaintForm" where "registerComplaintForm" is the property
+    we have created in register.component.ts
+-->
+<form [formGroup]="registerComplaintForm" (ngSubmit)="register()">
+  <h2 class="text-center text-primary">Complaint Form</h2>
+  <hr>
+  <div class="form-group">
+    <input [ngClass]="{'is-invalid': registerComplaintForm.get('complaintName').errors && registerComplaintForm.get('complaintName').touched}" class="form-control"
+           placeholder="Complainant's Name" formControlName="complaintName">
+    <div class="invalid-feedback" *ngIf="registerComplaintForm.get('complaintName').touched && registerComplaintForm.get('complaintName').hasError('required')">Complaint Name is required</div>
+  </div>
+
+  <div class="form-group">
+    <input [ngClass]="{'is-invalid': registerComplaintForm.get('description').errors && registerComplaintForm.get('description').touched}" class="form-control"
+           placeholder="Description" formControlName="description">
+    <div class="invalid-feedback" *ngIf="registerComplaintForm.get('description').touched && registerComplaintForm.get('description').hasError('required')">Description is required</div>
+  </div>
+
+  <div class="form-group">
+    <input [ngClass]="{'is-invalid': registerComplaintForm.get('email').errors && registerComplaintForm.get('email').touched}" class="form-control"
+           placeholder="E-mail" formControlName="email">
+    <div class="invalid-feedback" *ngIf="registerComplaintForm.get('email').touched && registerComplaintForm.get('email').hasError('required')">Email is required</div>
+  </div>
+
+  <div class="form-group">
+    <input [ngClass]="{'is-invalid': registerComplaintForm.get('complaintRegarding').errors && registerComplaintForm.get('complaintRegarding').touched}" class="form-control"
+           placeholder="Complaint Regarding" formControlName="complaintRegarding">
+    <div class="invalid-feedback" *ngIf="registerComplaintForm.get('complaintRegarding').touched && registerComplaintForm.get('complaintRegarding').hasError('required')">Complaint Regarding is required</div>
+  </div>
+  
+<!--City-->
+<div class="form-group">
+  <input [ngClass]="{'is-invalid': registerComplaintForm.get('city').errors && registerComplaintForm.get('city').touched}" class="form-control"
+         placeholder="City" formControlName="city">
+  <div class="invalid-feedback" *ngIf="registerComplaintForm.get('city').touched && registerComplaintForm.get('city').hasError('required')">City is required</div>
+</div>
+
+<!--Country-->
+<div class="form-group">
+  <input [ngClass]="{'is-invalid': registerComplaintForm.get('country').errors && registerComplaintForm.get('country').touched}" class="form-control"
+         placeholder="Country" formControlName="country">
+  <div class="invalid-feedback" *ngIf="registerComplaintForm.get('country').touched && registerComplaintForm.get('country')?.hasError('required')">Country is required</div>
+</div>
+  <div class="form-group text-center">
+    <button class="btn btn-success mr-2" [disabled]="!registerComplaintForm.valid" type="submit">Logged</button>
+    <button class="btn btn-default" type="button" (click)="cancel()">Cancel</button>
+  </div>
+
+</form>
+
+<!--Temporary for just debugging-->
+<!--
+<p>Form value: {{registerComplaintForm.value | json}}</p>
+<p>Form status: {{registerComplaintForm.status | json}}</p>
+-->

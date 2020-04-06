@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ComplaintApp.Core.Users;
+using ComplaintApp.EntityFrameworkCore.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
 
@@ -8,13 +9,15 @@ namespace ComplaintApp.EntityFrameworkCore.Migrations
 {
     public class Seed
     {
+        private readonly ComplaintDbContext _context;
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<Role> _roleManager;
 
-        public Seed(UserManager<User> userManager, RoleManager<Role> roleManager)
+        public Seed(UserManager<User> userManager, RoleManager<Role> roleManager, ComplaintDbContext context)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _context = context;
         }
 
         public void SeedUsers()
@@ -23,7 +26,7 @@ namespace ComplaintApp.EntityFrameworkCore.Migrations
             {
                 //Source: https://www.json-generator.com/
 
-                var userData = System.IO.File.ReadAllText("Seed/UserSeedData.json");
+                var userData = System.IO.File.ReadAllText("Data/UserSeedData.json");
                 var users = JsonConvert.DeserializeObject<List<User>>(userData);
 
                 // Add user Roles
@@ -39,8 +42,6 @@ namespace ComplaintApp.EntityFrameworkCore.Migrations
                 {
                     _roleManager.CreateAsync(role).Wait();
                 }
-
-                //string[] names = { "Admin", "Staff" };
 
                 // Create the users
                 foreach (var user in users) //.Where(x=> !names.Contains(x.UserName))
@@ -75,6 +76,8 @@ namespace ComplaintApp.EntityFrameworkCore.Migrations
                     _userManager.AddToRoleAsync(staff, "Staff").Wait();
                 }
             }
+
+            _context.SaveChanges();
         }
     }
 }

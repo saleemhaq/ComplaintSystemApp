@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using ComplaintApp.EntityFrameworkCore.Repositories;
 using Microsoft.AspNetCore.Authorization;
 
 namespace ComplaintApp.API.Controllers
@@ -26,12 +28,14 @@ namespace ComplaintApp.API.Controllers
         private readonly SignInManager<User> _signInManager;
         private readonly IMapper _mapper;
         private readonly IConfiguration _config;
+        private readonly ComplaintDbContext _context;
 
-        public AuthController(UserManager<User> userManager, SignInManager<User> signInManager, IMapper mapper)
+        public AuthController(UserManager<User> userManager, SignInManager<User> signInManager, IMapper mapper, ComplaintDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _mapper = mapper;
+            _context = context;
         }
 
         #endregion
@@ -95,6 +99,13 @@ namespace ComplaintApp.API.Controllers
             // but the password is wrong so to avoid bruteforcing the password
             return Unauthorized();
         }
+
+        [HttpPost("registerComplaint")]
+        public async Task<IActionResult> RegisterComplaint(ComplaintDto complaintDtoInput)
+        {
+            return Ok();
+        }
+
         #region Utilities
 
         private async Task<string> GenerateJwtToken(User user)
@@ -149,6 +160,9 @@ namespace ComplaintApp.API.Controllers
             return tokenHandler.WriteToken(token);
         }
 
+
         #endregion
+
+        
     }
 }

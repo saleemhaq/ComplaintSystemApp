@@ -7,6 +7,7 @@
 <form [formGroup]="registerComplaintForm" (ngSubmit)="register()">
   <h2 class="text-center text-primary">Complaint Form</h2>
   <hr>
+  <input type="hidden" formControlName="id" />
   <div class="form-group">
     <input [ngClass]="{'is-invalid': registerComplaintForm.get('complaintName').errors && registerComplaintForm.get('complaintName').touched}" class="form-control"
            placeholder="Complainant's Name" formControlName="complaintName">

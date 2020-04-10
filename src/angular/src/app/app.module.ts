@@ -38,6 +38,7 @@ import { AdminService } from './_services/admin.service';
 import { RolesModalComponent } from './admin/roles-modal/roles-modal.component';
 import { ComplaintComponent } from './complaint/complaint.component';
 import { CustomerService } from './_services/customer.service';
+import { ComplaintManagementComponent } from './complaint/complaint-management/complaint-management.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -60,7 +61,8 @@ export function tokenGetter() {
     HasRoleDirective,
     UserManagementComponent,
     RolesModalComponent,
-    ComplaintComponent
+    ComplaintComponent,
+    ComplaintManagementComponent
   ],
   imports: [
     BrowserModule,

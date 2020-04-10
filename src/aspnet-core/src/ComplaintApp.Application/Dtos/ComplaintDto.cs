@@ -6,10 +6,14 @@ namespace ComplaintApp.Application.Dtos
 {
     public class ComplaintDto
     {
+        public int Id { get; set; }
         public string ComplaintName { get; set; }
         public string Description { get; set; }
         public string Email { get; set; }
         public string Status { get; set; }
+
+        public string City { get; set; }
+        public string Country { get; set; }
 
         public int? UpdatedBy { get; set; }
         public bool IsActive { get; set; }

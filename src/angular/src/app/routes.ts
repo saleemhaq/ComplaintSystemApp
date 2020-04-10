@@ -8,6 +8,8 @@ import { MemberDetailResolver } from './_resolver/member-detail.resolver';
 import { MemberListResolver } from './_resolver/member-list.resolver';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { MemberEditResolver } from './_resolver/member-edit.resolver';
+import { ComplaintManagementComponent } from './complaint/complaint-management/complaint-management.component';
+import { ComplaintComponent } from './complaint/complaint.component';
 
 export const appRoutes: Routes = [
   
@@ -33,6 +35,9 @@ export const appRoutes: Routes = [
         resolve: { user: MemberEditResolver }
       },
 
+      {
+        path: 'complaint/edit/:id', component: ComplaintComponent        
+      },
       {
         path: 'admin', component: AdminPanelComponent,      
         data: { roles: ['Admin', 'Admin']}

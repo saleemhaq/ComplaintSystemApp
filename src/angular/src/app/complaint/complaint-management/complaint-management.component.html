@@ -1,0 +1,19 @@
+<div class="row">
+  <table class="table">
+    <tr>
+      <th style="width: 10%">Complaint Name</th>
+      <th style="width: 30%">Description</th>
+      <th style="width: 40%">Email</th>
+      <th style="width: 20%"></th>
+    </tr>
+    <tr *ngFor="let complaintItem of complaints">
+      <td>{{complaintItem.complaintName}}</td>
+      <td>{{complaintItem.description}}</td>
+      <td>{{complaintItem.email}}</td>
+      <td>  
+        <a [routerLink]="['/complaint/edit/', complaintItem.id]">Edit</a>        
+      </td> 
+      <!-- <td><button class="btn btn-info" (click)="editComplaintModal(complaintItem)">Edit Roles</button></td> -->
+    </tr>
+  </table>
+</div>

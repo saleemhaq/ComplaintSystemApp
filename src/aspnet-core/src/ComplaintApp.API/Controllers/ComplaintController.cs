@@ -31,8 +31,25 @@ namespace ComplaintApp.API.Controllers
         [HttpGet("getComplaints")]
         public async Task<IActionResult> GetComplaints()
         {
-            var complaints = await (from complaint in _context.Complaints select  complaint).ToListAsync();
-
+            var complaints = await (from complaint in _context.Complaints where complaint.IsActive == true select  complaint).ToListAsync();
+            foreach (var item in complaints)
+            {
+                switch (item.Status)
+                {
+                    case "Pending":
+                        item.Status = "30";;
+                        break;
+                    case "Open":
+                        item.Status = "40";
+                        break;
+                    case "In Progress":
+                        item.Status = "60";
+                        break;
+                    case "Done":
+                        item.Status = "100";
+                        break;
+                }
+            }
             return Ok(complaints);
         }
 

@@ -27,5 +27,6 @@ export class CustomerService {
   updateComplaint(id: number, complaint: Complaint) {  
     return this.http.put(this.baseUrl + id, complaint);
   }
+  
 
 }

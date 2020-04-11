@@ -22,7 +22,7 @@ export class ComplaintManagementComponent implements OnInit {
 
   getComplaints(){
     this.customerService.getComplaintss().subscribe((data: Complaint[]) => {
-      console.log(data);
+      console.log('before data' + data);
       this.complaints = data;
     }, error => {
       this.alertify.error(error);

@@ -42,7 +42,7 @@ namespace ComplaintApp.Application.Complaint
 
         public async Task<bool> SaveAll()
         {
-            throw new NotImplementedException();
+            return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<PagedList<User>> GetUsers(UserParams userParams)

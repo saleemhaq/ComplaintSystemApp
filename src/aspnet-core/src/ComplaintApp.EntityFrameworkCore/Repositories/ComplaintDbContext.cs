@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ComplaintApp.Core.AuditTracking;
 using ComplaintApp.Core.Complaint;
 using ComplaintApp.Core.Users;
 using Microsoft.AspNetCore.Identity;
@@ -18,6 +19,7 @@ namespace ComplaintApp.EntityFrameworkCore.Repositories
 
         public DbSet<User> Users { get; set; }
         public DbSet<Complaint> Complaints { get; set; }
+        public DbSet<AuditTrail> AuditTrails { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

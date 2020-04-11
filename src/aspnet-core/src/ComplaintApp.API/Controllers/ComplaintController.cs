@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using ComplaintApp.Application.Complaint;
 using ComplaintApp.Application.Dtos;
+using ComplaintApp.Application.Shared;
 using ComplaintApp.Core.Complaint;
 using ComplaintApp.EntityFrameworkCore.Repositories;
 using Microsoft.AspNetCore.Authorization;
@@ -14,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ComplaintApp.API.Controllers
 {
+    [ServiceFilter(typeof(LogUserActivity))]
     [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]

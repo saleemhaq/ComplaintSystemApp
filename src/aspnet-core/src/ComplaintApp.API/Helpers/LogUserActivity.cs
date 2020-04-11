@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
+using ComplaintApp.Application.Complaint;
+using ComplaintApp.Core.AuditTracking;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -18,25 +17,30 @@ namespace ComplaintApp.Application.Shared
         /// <returns></returns>
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            // Inside this resultContext would be a type of 'ActionExecutedContext'
-            // and this will give us access to things like HttpContext for the action
-            // that has been executed
             var resultContext = await next();
+            // Stores the Request in an Accessible object  
+            var request = context.HttpContext.Request;
 
-            // We will get the userId from the token
-            var userId = int.Parse(resultContext.HttpContext.User
-                .FindFirst(ClaimTypes.NameIdentifier).Value);
+            var audit = new AuditTrail()
+            {
+                // Your Audit Identifier   
+                AuditID = Guid.NewGuid(),
+                // Our Username (if available)  
+                UserName = (context.HttpContext.User.Identity.IsAuthenticated) ? context.HttpContext.User.Identity.Name : "Anonymous",
+                // The IP Address of the Request  
+                IPAddress = request.HttpContext.Connection.RemoteIpAddress.ToString(),
+                // The URL that was accessed  
+                AreaAccessed = Microsoft.AspNetCore.Http.Extensions.UriHelper.GetEncodedUrl(request),
+                // Creates our Timestamp  
+                Timestamp = DateTime.UtcNow
+            };
+              
+            var repo = resultContext.HttpContext.RequestServices
+                .GetService<IComplaintRepository>();
+            repo.Add(audit);
+            // Stores the Audit in the Database
+            await repo.SaveAll();
 
-            // We will get an instance of our repo
-            // We are using RequestServices in this case because the IDatingRepository
-            // is provided as a service in our dependency injection container 
-            // inside our Startup class
-            //var repo = resultContext.HttpContext.RequestServices
-            //    .GetService<IDatingRepository>();
-
-            //var user = await repo.GetUser(userId, true);
-            //user.LastActive = DateTime.Now;
-            //await repo.SaveAll();
         }
     }
 }

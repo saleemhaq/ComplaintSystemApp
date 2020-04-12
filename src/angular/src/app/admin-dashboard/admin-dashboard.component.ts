@@ -17,7 +17,6 @@ export class AdminDashboardComponent implements OnInit {
   constructor(private customerService: CustomerService) { }  
   ngOnInit() {  
     this.customerService.getComplaintss().subscribe((data: Complaint[]) => {
-      console.log('fresh data '+  data);  
       data.forEach(x => {  
         this.Player.push(x.complaintName);  
         this.Run.push(x.status);

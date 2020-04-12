@@ -46,7 +46,7 @@
   <div class="invalid-feedback" *ngIf="registerComplaintForm.get('country').touched && registerComplaintForm.get('country')?.hasError('required')">Country is required</div>
 </div>
   <div class="form-group text-center">
-    <button class="btn btn-success mr-2" [disabled]="!registerComplaintForm.valid" type="submit">Logged</button>
+    <button class="btn btn-success mr-2" [disabled]="!registerComplaintForm.valid" type="submit">Submit</button>
     <button class="btn btn-default" type="button" (click)="cancel()">Cancel</button>
   </div>
 

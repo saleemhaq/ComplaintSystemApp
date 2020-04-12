@@ -37,13 +37,11 @@ export class ComplaintComponent implements OnInit {
 
   ngOnInit() {
   
-    if (this.complaintId > 0) {
-      //this.title = "Edit";  
-      console.log("GetComplaintById" + this.complaintId);
+    if (this.complaintId > 0) {      
       this.customerService.getComplaintById(this.complaintId)
           .subscribe(resp => {
             this.registerComplaintForm.setValue(resp);
-            console.log(resp);
+            // console.log(resp);
           }
             );
    }

@@ -21,12 +21,11 @@ export class CustomerService {
     return this.http.get(this.baseUrl + 'getComplaints');
   }
   getComplaintById(id): Observable<Complaint> {
-    console.log("id" + id);    
-    return this.http.get<Complaint>(this.baseUrl + 'getComplaintById?Id=' + id);
+      return this.http.get<Complaint>(this.baseUrl + 'getComplaintById?Id=' + id);
   }
   updateComplaint(id: number, complaint: Complaint) {  
     return this.http.put(this.baseUrl + id, complaint);
   }
-  
+
 
 }

@@ -1,6 +1,6 @@
 <div class="row">
   
-  <input type="button" value="Generate Report" class="btn btn-success" (click)="SavePDF()">
+
   <table class="container table" id="content" #content>
     <tr>
       <th style="width: 10%">Complaint Name</th>
@@ -12,10 +12,8 @@
       <td>{{complaintItem.complaintName}}</td>
       <td>{{complaintItem.description}}</td>
       <td>{{complaintItem.email}}</td>
-      <td>  
-        <a [routerLink]="['/complaint/edit/', complaintItem.id]">Edit</a>        
-      </td> 
-      <!-- <td><button class="btn btn-info" (click)="editComplaintModal(complaintItem)">Edit Roles</button></td> -->
+      <td><button class="btn btn-default" [routerLink]="['/complaint/edit/', complaintItem.id]">Edit Complaint</button></td>       
     </tr>
   </table>
+  <input type="button" value="Generate Report" class="btn btn-success" (click)="SavePDF()" style="margin: 0 81%">
 </div>

@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using ComplaintApp.Core.Complaint;
 using ComplaintApp.Core.Users;
 using ComplaintApp.EntityFrameworkCore.Repositories;
 using Microsoft.AspNetCore.Identity;
@@ -12,6 +14,7 @@ namespace ComplaintApp.EntityFrameworkCore.Migrations
         private readonly ComplaintDbContext _context;
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<Role> _roleManager;
+
 
         public Seed(UserManager<User> userManager, RoleManager<Role> roleManager, ComplaintDbContext context)
         {
@@ -75,6 +78,64 @@ namespace ComplaintApp.EntityFrameworkCore.Migrations
                     var staff = _userManager.FindByNameAsync("Staff").Result;
                     _userManager.AddToRoleAsync(staff, "Staff").Wait();
                 }
+                var complaintOne = new Complaint
+                {
+                    Description = "complaint desc one",
+                    Email = "complaintyasir@hotmail.com",
+                    Status = "Pending",
+                    IsActive = true,
+                    IsDeleted = false,
+                    CreationTime = DateTime.UtcNow,
+                    CreatorUserId = 8,
+                    ComplaintRegarding = "Regarding one",
+                    ComplaintName = "Complaint one",
+                    City = "Sindh",
+                    Country = "Pakistan"
+                };
+                var complaintTwo = new Complaint
+                {
+                    Description = "complaint desc two",
+                    Email = "complaintali@yahoo.com",
+                    Status = "Open",
+                    IsActive = true,
+                    IsDeleted = false,
+                    CreationTime = DateTime.UtcNow,
+                    CreatorUserId = 8,
+                    ComplaintRegarding = "Regarding two",
+                    ComplaintName = "Complaint two",
+                    City = "Punjab",
+                    Country = "Pakistan"
+                };
+                var complaintThree = new Complaint
+                {
+                    Description = "complaint desc three",
+                    Email = "complaintjafar@gmail.com",
+                    Status = "Pending",
+                    IsActive = true,
+                    IsDeleted = false,
+                    CreationTime = DateTime.UtcNow,
+                    CreatorUserId = 8,
+                    ComplaintRegarding = "Regarding three",
+                    ComplaintName = "Complaint three",
+                    City = "Sydney",
+                    Country = "Australia"
+                };
+                var complaintFour = new Complaint
+                {
+                    Description = "complaint desc four",
+                    Email = "complaintyaqoob@name.com",
+                    Status = "Pending",
+                    IsActive = true,
+                    IsDeleted = false,
+                    CreationTime = DateTime.UtcNow,
+                    CreatorUserId = 8,
+                    ComplaintRegarding = "Regarding four",
+                    ComplaintName = "Complaint four",
+                    City = "Ontario",
+                    Country = "Canada"
+                };
+                var complaints = new List<Complaint> {complaintOne, complaintTwo, complaintThree, complaintFour};
+                _context.AddRange(complaints);
             }
 
             _context.SaveChanges();

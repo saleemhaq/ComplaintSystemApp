@@ -39,6 +39,9 @@ export const appRoutes: Routes = [
         path: 'complaint/edit/:id', component: ComplaintComponent        
       },
       {
+        path: 'complaint', component: AdminPanelComponent        
+      },
+      {
         path: 'admin', component: AdminPanelComponent,      
         data: { roles: ['Admin', 'Admin']}
       }
